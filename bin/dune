@@ -1,4 +1,4 @@
 (executable
-(public_name app)
-(name app)
-(libraries interp))
+(public_name main)
+(name main)
+(libraries interp cmdliner))

@@ -1,3 +1,6 @@
+(* let main step = Printf.printf "! %f" step *)
+let main step methods = Printf.printf "! %f %s" step (String.concat " " methods)
+
 (* open Input
 
    let () =
