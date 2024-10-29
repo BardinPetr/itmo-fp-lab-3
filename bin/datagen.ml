@@ -7,4 +7,4 @@ let gen_range x_min x_max step =
 
 (** [apply_on_range x_seq func] is a sequence of pairs (x, y), where y =
     [func x] for each x from x_seq*)
-let apply_on_range x_seq func = Seq.map (fun i -> (i, func i)) x_seq
+let apply_on_range func x_seq = Seq.map (fun i -> (i, func i)) x_seq
