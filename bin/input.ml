@@ -1,24 +1,18 @@
-type 'a stream = Nil | Cons of 'a * 'a stream Lazy.t
+open Seq
 
-(** [next_pair] reads next line from stdin, @returns Some(float, float) 
-    if it is correct, if not - retries, if EOF - None *)
-let rec next_pair () =
-  try
-    match
-      read_line ()
-      |> String.trim
-      |> String.split_on_char ' '
-      |> List.map float_of_string_opt
-    with
-    | [ Some x; Some y ] -> Some (x, y)
-    | _ ->
-        print_string "Invalid input format. Please retry\n";
-        next_pair ()
-  with End_of_file -> None
+(** [stdin_xy_dispenser] is dispenser for float pairs parsed from stdin lines. 
+    @see stdin_dispenser. *)
+let stdin_xy_dispenser () =
+  Sequtils.stdin_dispenser (fun i ->
+      match
+        i
+        |> String.trim
+        |> String.split_on_char ' '
+        |> List.map float_of_string_opt
+      with
+      | [ Some x; Some y ] -> Some (x, y)
+      | _ -> None)
 
-(** [input_stream] is a infinite stream (untill EOF) of parsed input data lines *)
-let rec input_stream () =
-  lazy
-    (match next_pair () with
-    | Some (x, y) -> Cons ((x, y), input_stream ())
-    | None -> Nil)
+(** [main_input_stream] is a infinite stream (untill EOF) of parsed input data
+    lines *)
+let main_input_stream () = stdin_xy_dispenser |> of_dispenser |> memoize

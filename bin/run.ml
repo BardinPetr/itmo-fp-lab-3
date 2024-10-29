@@ -1,17 +1,12 @@
-(* let main step = Printf.printf "! %f" step *)
-let main step methods = Printf.printf "! %f %s" step (String.concat " " methods)
+let f1 l = List.fold_left (fun (a, b) (ia, ib) -> (a +. ia, b +. ib)) (0., 0.) l
+let f2 l = List.fold_left (fun (a, b) (ia, ib) -> (a *. ia, b *. ib)) (1., 1.) l
+let function_defs = [ (f1, 3); (f2, 5) ]
 
-(* open Input
-
-   let () =
-     let stream = input_stream () in
-
-     let rec print_stream = function
-       | Cons ((x, y), tl) ->
-           Printf.printf "(%f, %f)\n" x y;
-
-           print_stream (Lazy.force tl)
-       | Nil -> ()
-     in
-
-     print_stream (Lazy.force stream) *)
+(* let main step _ =
+   Printf.printf "! %f" step;
+   let input = Input.main_input_stream in
+   function_defs
+   |> List.map (fun (f, sz) -> f (Sequtils.sliding_window sz input))
+   |> List.map (fun (a, b) -> Printf.sprintf "(%f,%f)" a b)
+   |> String.concat ","
+   |> fun i -> "[" ^ i ^ "]\n" |> print_string *)
