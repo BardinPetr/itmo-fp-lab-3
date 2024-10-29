@@ -15,4 +15,4 @@ let stdin_xy_dispenser () =
 
 (** [main_input_stream] is a infinite stream (untill EOF) of parsed input data
     lines *)
-let main_input_stream () = stdin_xy_dispenser |> of_dispenser |> memoize
+let main_input_stream = stdin_xy_dispenser |> of_dispenser |> memoize
