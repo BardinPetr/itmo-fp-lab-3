@@ -17,5 +17,5 @@
  (name lab3)
  (synopsis "ITMO FP course laboratory work #3")
  (description "Implemetation of linear interpolation")
- (depends ocaml dune (alcotest :with-test) (junit_alcotest :with-test) (qcheck :with-test) (qcheck-alcotest :with-test) cmdliner owl)
+ (depends ocaml dune (alcotest :with-test) (junit_alcotest :with-test) (qcheck :with-test) (qcheck-alcotest :with-test) cmdliner)
  (allow_empty))

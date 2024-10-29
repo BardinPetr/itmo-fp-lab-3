@@ -3,7 +3,7 @@
 let gen_range x_min x_max step =
   Seq.ints 0
   |> Seq.map (fun i -> x_min +. (step *. float_of_int i))
-  |> Seq.take_while (fun i -> i <= x_max)
+  |> Seq.take_while (fun i -> i <= x_max +. step)
 
 (** [apply_on_range x_seq func] is a sequence of pairs (x, y), where y =
     [func x] for each x from x_seq*)

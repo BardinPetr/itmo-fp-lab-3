@@ -15,7 +15,6 @@ depends: [
   "qcheck" {with-test}
   "qcheck-alcotest" {with-test}
   "cmdliner"
-  "owl"
   "odoc" {with-doc}
 ]
 build: [

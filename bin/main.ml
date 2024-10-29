@@ -6,7 +6,7 @@ let step_t =
   in
   Arg.(value & opt float 1.0 & info [ "s"; "step" ] ~doc)
 
-let methods = [ "linear"; "newton"; "gauss"; "lagrange" ]
+let methods = [ "linear"; "lagrange3"; "lagrange4" ]
 
 let methods_t =
   let doc =

@@ -6,9 +6,11 @@
 let make_interpolation_runner name make_interpolator step src_data =
   let min_x, _ = List.hd src_data in
   let max_x, _ = List.nth src_data (List.length src_data - 1) in
-  Datagen.gen_range min_x max_x step
-  |> Datagen.apply_on_range (make_interpolator src_data)
-  |> Output.print_table name
+  let interpolated = make_interpolator src_data in
+  let res_data =
+    Datagen.gen_range min_x max_x step |> Datagen.apply_on_range interpolated
+  in
+  (name, interpolated, src_data, res_data)
 
 (** [apply_windowed_interpolations step methods input] is main function that
     applies all selected interpolation methods over input *)
@@ -31,9 +33,17 @@ let main step method_names =
   let function_defs =
     [
       ( "linear",
-        make_interpolation_runner "Linear interpolation (2pt)"
+        make_interpolation_runner "Linear interpolation"
           Interp.linear_interpolate,
         2 );
+      ( "lagrange3",
+        make_interpolation_runner "Lagrange interpolation (3pt)"
+          Interp.lagrange_interpolate,
+        3 );
+      ( "lagrange4",
+        make_interpolation_runner "Lagrange interpolation (4pt)"
+          Interp.lagrange_interpolate,
+        4 );
     ]
   in
   let methods =
@@ -45,6 +55,7 @@ let main step method_names =
   (* synchronized seq could now be merged now and flattened in round-robin pattern *)
   |> Sequtils.nzip
   |> Seq.flat_map List.to_seq
+  (* sort out only existing results *)
   |> Seq.filter_map Fun.id
-  (* print out only valid results *)
-  |> Seq.iter (Printf.printf "%s\n")
+  |> Seq.map (fun (name, _, _, pts) -> Output.print_table name pts)
+  |> Seq.iter print_string
