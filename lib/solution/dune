@@ -1,0 +1,3 @@
+(library
+ (name solution)
+ (libraries sequtils))

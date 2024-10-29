@@ -1,4 +1,4 @@
 (executable
  (public_name main)
  (name main)
- (libraries sequtils interp cmdliner))
+ (libraries sequtils interp solution cmdliner))

@@ -1,3 +1,10 @@
 (test
  (name runner)
- (libraries alcotest junit_alcotest qcheck qcheck-alcotest))
+ (libraries
+  alcotest
+  junit_alcotest
+  qcheck
+  qcheck-alcotest
+  interp
+  sequtils
+  solution))

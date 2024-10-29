@@ -21,18 +21,18 @@ jobs:
       - run: opam install . --deps-only --with-test
       - run: opam exec -- dune build
 
-      # - name: Run tests
-      #   run: opam exec -- dune runtest
-      #   env:
-      #     REPORT_PATH: ${{github.workspace}}/_build/report.xml
+      - name: Run tests
+        run: opam exec -- dune runtest
+        env:
+          REPORT_PATH: ${{github.workspace}}/_build/report.xml
 
-      # - name: Publish Test Results
-      #   uses: EnricoMi/publish-unit-test-result-action/linux@v2
-      #   if: always()
-      #   with:
-      #     report_individual_runs: true
-      #     files: |
-      #       ${{github.workspace}}/_build/report.xml
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action/linux@v2
+        if: always()
+        with:
+          report_individual_runs: true
+          files: |
+            ${{github.workspace}}/_build/report.xml
 
   lint-doc:
     runs-on: ubuntu-latest
